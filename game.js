@@ -1,38 +1,18 @@
-function setPixel(screen, x, y, color) {
-    screen.buffer[x + y * screen.width] = color;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.grid');
+    let width = 10;
+    let squares = [];
 
-function printScreen(screen) {
-
-    let s = "";
-    for(let i = 0; i < screen.buffer.length; i ++) {
-        if(i % screen.width == 0) {
-            s += "\n";
-        }
-        let pix = '' + screen.buffer[i];
-        if(pix.length == 1) {
-            s += ' ' + pix;
-        } else {
-            s += pix;
+    function createBoard () {
+        for (i = 0; i < width * width; i++) {
+            const square = document.createElement('div');
+            square.setAttribute('id', i);
+            grid.appendChild(square);
+            squares.push(square);
+            
         }
     }
+    createBoard();
+})
 
-    console.log(s);
 
-}
-
-function initScreen(width, height) {
-    let screen = {
-        buffer: [],
-        width: width,
-        height: height
-    }
-    for(let i = 0; i < width * height; i ++) {
-        screen.buffer[i] = '[_]';
-    }
-    return screen;
-}
-
-let screen = initScreen(15, 15);
-
-printScreen(screen);
