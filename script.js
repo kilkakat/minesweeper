@@ -13,7 +13,7 @@ const NUMBER_OF_MINES = 20;
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
 const boardElement = document.querySelector(".board");
 const minesLeftText = document.querySelector("[data-mine-count]");
-const messageText = document.querySelector('.subtext');
+const messageText = document.querySelector(".subtext");
 
 
 board.forEach(row => {
@@ -36,8 +36,10 @@ minesLeftText.textContent = NUMBER_OF_MINES;
 
 function listMinesLeft() {
     const markedTilesCount = board.reduce((count, row) => {
-        return count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length
-    }, 0);
+        return (
+            count + row.filter(tile => tile.status === TILE_STATUSES.MARKED).length
+        )
+    }, 0)
 
     minesLeftText.textContent = NUMBER_OF_MINES - markedTilesCount;
 }
@@ -59,8 +61,12 @@ function checkGameEnd() {
         messageText.textContent = "You Lose!"
         board.forEach(row => {
             row.forEach(tile => {
-                if (tile.status === TILE_STATUSES.MARKED) markTile(tile);
-                if (tile.mine) revealTile(board, tile);
+                if (tile.status === TILE_STATUSES.MARKED) {
+                    markTile(tile)
+                };
+                if (tile.mine) {
+                    revealTile(board, tile)
+                };
             })
         })
     }

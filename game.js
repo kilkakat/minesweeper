@@ -51,9 +51,9 @@ export function markTile(tile) {
     }
 }
 
-export function revealTile(tile) {
+export function revealTile(board, tile) {
     if (tile.status !== TILE_STATUSES.HIDDEN) {
-        return 
+        return;
     }
 
     if (tile.mine) {
@@ -68,7 +68,7 @@ export function revealTile(tile) {
         adjacentTiles.forEach(revealTile.bind(null, board))
     } else {
         tile.element.textContent = mines.length;
-    }``
+    }
 };
 
 export function checkWin(board) {
@@ -90,8 +90,8 @@ export function checkLose(board) {
             return tile.status === TILE_STATUSES.MINE;
         });
     });
-   
 }
+
 function getMinePositions(boardSize, numberOfMines) {
     const positions = [];
 
@@ -117,12 +117,12 @@ function randomNumber(size) {
     return Math.floor(Math.random() * size);
 }
 
-function nearbyTiles(board, tile) {
+function nearbyTiles(board, {i, j}) {
     const tiles = [];
 
-    for (let xOffSet = -1; xOffSet <= 1; xOffSet++) {
-        for (let yOffSet = -1; yOffSet <= 1; yOffSet++) {
-            tile = board[x + xOffSet]?.[y + yOffSet];
+    for (let iOffSet = -1; iOffSet <= 1; iOffSet++) {
+        for (let jOffSet = -1; jOffSet <= 1; jOffSet++) {
+            const tile = board[i + iOffSet]?.[j + jOffSet];
             if (tile) tiles.push(tile);
         }
     }
