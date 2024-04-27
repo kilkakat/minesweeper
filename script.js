@@ -8,20 +8,19 @@ import {
 } from "./game.js";
 
 const BOARD_SIZE = 10;
-const NUMBER_OF_MINES = 10;
+const NUMBER_OF_MINES = 20;
 
 const board = createBoard(BOARD_SIZE, NUMBER_OF_MINES);
 const boardElement = document.querySelector(".board");
-const minesLeftText = document.querySelector('[data-mine-count]');
+const minesLeftText = document.querySelector("[data-mine-count]");
 const messageText = document.querySelector('.subtext');
 
-// console.log(board);
 
 board.forEach(row => {
     row.forEach(tile => {
     boardElement.append(tile.element)
     tile.element.addEventListener('click', () => {
-        revealTile(tile);
+        revealTile(board, tile);
         checkGameEnd();
     });
     tile.element.addEventListener('contextmenu', e => {
@@ -68,5 +67,5 @@ function checkGameEnd() {
 }
 
 function stopProp(e) {
-    e.stopImmediatePropagation()
+    e.stopImmediatePropagation();
 }

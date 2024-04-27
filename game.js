@@ -9,13 +9,11 @@ export function createBoard(boardSize, numberOfMines) {
     let board = [];
     let minePositions = getMinePositions(boardSize, numberOfMines);
     
-    // console.log(minePositions);
-
     for (let i = 0; i < boardSize; i++) {
         let row = [];
         for (let j = 0; j < boardSize; j++) {
             const element = document.createElement('div');
-            element.dataset.status =  TILE_STATUSES.HIDDEN;
+            element.dataset.status = TILE_STATUSES.HIDDEN;
            
             let tile = {
                 element,
@@ -27,7 +25,7 @@ export function createBoard(boardSize, numberOfMines) {
                 },
                 set status(value) {
                     this.element.dataset.status = value;
-                }
+                },
             }
 
             row.push(tile);
@@ -70,7 +68,7 @@ export function revealTile(tile) {
         adjacentTiles.forEach(revealTile.bind(null, board))
     } else {
         tile.element.textContent = mines.length;
-    }
+    }``
 };
 
 export function checkWin(board) {
@@ -95,13 +93,14 @@ export function checkLose(board) {
    
 }
 function getMinePositions(boardSize, numberOfMines) {
-    let positions = [];
+    const positions = [];
 
     while (positions.length < numberOfMines) {
         const position = {
             i: randomNumber(boardSize),
             j: randomNumber(boardSize)
         }
+
         if (!positions.some(positionMatch.bind(null, position))) {
             positions.push(position);
         }
@@ -123,7 +122,7 @@ function nearbyTiles(board, tile) {
 
     for (let xOffSet = -1; xOffSet <= 1; xOffSet++) {
         for (let yOffSet = -1; yOffSet <= 1; yOffSet++) {
-            const tile = board[x + xOffSet]?.[y + yOffSet];
+            tile = board[x + xOffSet]?.[y + yOffSet];
             if (tile) tiles.push(tile);
         }
     }
